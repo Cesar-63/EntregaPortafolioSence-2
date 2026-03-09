@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1771899449355" clover="3.2.0">
+  <project timestamp="1771899449356" name="All files">
+    <metrics statements="46" coveredstatements="43" conditionals="41" coveredconditionals="33" methods="5" coveredmethods="5" elements="92" coveredelements="81" complexity="0" loc="46" ncloc="46" packages="1" files="1" classes="1"/>
+    <file name="handler.js" path="C:\Users\cesar\GitHub\proyecto-portafolio-22\auth-service\src\handler.js">
+      <metrics statements="46" coveredstatements="43" conditionals="41" coveredconditionals="33" methods="5" coveredmethods="5"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="7" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="8" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="18" count="7" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="25" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="27" count="3" type="cond" truecount="5" falsecount="0"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="31" count="2" type="stmt"/>
+      <line num="36" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+      <line num="43" count="1" type="stmt"/>
+      <line num="48" count="1" type="stmt"/>
+      <line num="49" count="1" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="53" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="55" count="3" type="cond" truecount="4" falsecount="0"/>
+      <line num="56" count="1" type="stmt"/>
+      <line num="59" count="2" type="stmt"/>
+      <line num="64" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="65" count="1" type="stmt"/>
+      <line num="68" count="1" type="stmt"/>
+      <line num="69" count="1" type="stmt"/>
+      <line num="71" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="72" count="0" type="stmt"/>
+      <line num="75" count="1" type="stmt"/>
+      <line num="81" count="1" type="stmt"/>
+      <line num="84" count="1" type="stmt"/>
+      <line num="85" count="7" type="stmt"/>
+      <line num="86" count="7" type="cond" truecount="1" falsecount="2"/>
+      <line num="87" count="7" type="cond" truecount="1" falsecount="2"/>
+      <line num="89" count="7" type="stmt"/>
+      <line num="90" count="7" type="cond" truecount="4" falsecount="0"/>
+      <line num="91" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="92" count="1" type="stmt"/>
+      <line num="94" count="0" type="stmt"/>
+      <line num="95" count="0" type="stmt"/>
+      <line num="99" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

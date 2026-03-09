@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+auth-service/node_modules/
+reservations-service/node_modules/
+spaces-service/node_modules/
+
+# SAM build artifacts
+.aws-sam/
+samconfig.toml
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db

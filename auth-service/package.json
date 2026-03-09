@@ -1,0 +1,25 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "Microservicio de autenticación - Sistema de Reservas Cloud",
+  "main": "src/handler.js",
+  "scripts": {
+    "start": "node src/handler.js",
+    "test": "jest --coverage",
+    "dev": "nodemon src/handler.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.996.0",
+    "@aws-sdk/util-dynamodb": "^3.996.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.3",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

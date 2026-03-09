@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" font-family="'Georgia', serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1d4ed8"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#065f46"/>
+      <stop offset="100%" style="stop-color:#047857"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6b21a8"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#92400e"/>
+      <stop offset="100%" style="stop-color:#b45309"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="0.2" opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+
+  <!-- Title -->
+  <text x="600" y="48" text-anchor="middle" font-size="26" font-weight="bold" fill="#f1f5f9" letter-spacing="2">ARQUITECTURA DEL SISTEMA DE RESERVAS CLOUD</text>
+  <text x="600" y="70" text-anchor="middle" font-size="13" fill="#64748b" letter-spacing="1">Microservicios · AWS Lambda · API Gateway · DynamoDB</text>
+  <line x1="200" y1="82" x2="1000" y2="82" stroke="#334155" stroke-width="1"/>
+
+  <!-- ── CLIENTE ── -->
+  <g filter="url(#shadow)">
+    <rect x="490" y="105" width="220" height="70" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  </g>
+  <text x="600" y="133" text-anchor="middle" font-size="11" fill="#94a3b8" letter-spacing="1">CLIENTE</text>
+  <text x="600" y="153" text-anchor="middle" font-size="15" font-weight="bold" fill="#f1f5f9">🖥  Postman / App</text>
+  <text x="600" y="168" text-anchor="middle" font-size="10" fill="#64748b">HTTP Requests</text>
+
+  <!-- Arrow: cliente → API Gateway -->
+  <line x1="600" y1="175" x2="600" y2="218" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowBlue)"/>
+  <rect x="545" y="188" width="110" height="18" rx="4" fill="#1e3a5f" opacity="0.8"/>
+  <text x="600" y="200" text-anchor="middle" font-size="10" fill="#60a5fa">HTTPS / REST</text>
+
+  <!-- ── API GATEWAY ── -->
+  <g filter="url(#shadow)">
+    <rect x="350" y="220" width="500" height="75" rx="12" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+  </g>
+  <text x="600" y="248" text-anchor="middle" font-size="11" fill="#bfdbfe" letter-spacing="2">AWS</text>
+  <text x="600" y="268" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff" filter="url(#glow)">API Gateway</text>
+  <text x="600" y="285" text-anchor="middle" font-size="11" fill="#bfdbfe">/auth  ·  /spaces  ·  /reservations</text>
+
+  <!-- Arrows: API Gateway → 3 Lambdas -->
+  <!-- Auth -->
+  <line x1="440" y1="295" x2="200" y2="380" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <!-- Spaces -->
+  <line x1="600" y1="295" x2="600" y2="380" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <!-- Reservations -->
+  <line x1="760" y1="295" x2="1000" y2="380" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Labels on arrows -->
+  <text x="298" y="343" text-anchor="middle" font-size="10" fill="#475569">POST /auth/*</text>
+  <text x="560" y="343" text-anchor="middle" font-size="10" fill="#475569">/spaces/*</text>
+  <text x="908" y="343" text-anchor="middle" font-size="10" fill="#475569">/reservations/*</text>
+
+  <!-- ── LAMBDA: AUTH ── -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="382" width="280" height="100" rx="12" fill="url(#purpleGrad)" stroke="#8b5cf6" stroke-width="1.5"/>
+  </g>
+  <text x="200" y="408" text-anchor="middle" font-size="10" fill="#ddd6fe" letter-spacing="2">AWS LAMBDA</text>
+  <text x="200" y="430" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">🔐 auth-service</text>
+  <text x="200" y="450" text-anchor="middle" font-size="11" fill="#c4b5fd">register · login</text>
+  <text x="200" y="468" text-anchor="middle" font-size="10" fill="#a78bfa">JWT · bcrypt · Node.js 18</text>
+
+  <!-- ── LAMBDA: SPACES ── -->
+  <g filter="url(#shadow)">
+    <rect x="460" y="382" width="280" height="100" rx="12" fill="url(#greenGrad)" stroke="#10b981" stroke-width="1.5"/>
+  </g>
+  <text x="600" y="408" text-anchor="middle" font-size="10" fill="#a7f3d0" letter-spacing="2">AWS LAMBDA</text>
+  <text x="600" y="430" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">🏢 spaces-service</text>
+  <text x="600" y="450" text-anchor="middle" font-size="11" fill="#6ee7b7">list · get · create · update · delete</text>
+  <text x="600" y="468" text-anchor="middle" font-size="10" fill="#34d399">JWT Auth · Node.js 18</text>
+
+  <!-- ── LAMBDA: RESERVATIONS ── -->
+  <g filter="url(#shadow)">
+    <rect x="860" y="382" width="280" height="100" rx="12" fill="url(#orangeGrad)" stroke="#f59e0b" stroke-width="1.5"/>
+  </g>
+  <text x="1000" y="408" text-anchor="middle" font-size="10" fill="#fde68a" letter-spacing="2">AWS LAMBDA</text>
+  <text x="1000" y="430" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">📅 reservations-service</text>
+  <text x="1000" y="450" text-anchor="middle" font-size="11" fill="#fcd34d">create · list · get · cancel</text>
+  <text x="1000" y="468" text-anchor="middle" font-size="10" fill="#fbbf24">Conflict check · JWT · Node.js 18</text>
+
+  <!-- Arrows: Lambdas → DynamoDB -->
+  <line x1="200" y1="482" x2="200" y2="560" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="600" y1="482" x2="600" y2="560" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="1000" y1="482" x2="1000" y2="560" stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <!-- Reservations also reads Spaces -->
+  <path d="M 860 432 Q 730 520 740 562" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)"/>
+  <text x="770" y="510" text-anchor="middle" font-size="9" fill="#f59e0b">lee espacios</text>
+
+  <!-- ── DYNAMODB TABLES ── -->
+  <!-- Users -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="562" width="280" height="80" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5"/>
+  </g>
+  <text x="200" y="590" text-anchor="middle" font-size="10" fill="#94a3b8" letter-spacing="2">DYNAMODB</text>
+  <text x="200" y="612" text-anchor="middle" font-size="16" font-weight="bold" fill="#f1f5f9">🗄  Users</text>
+  <text x="200" y="632" text-anchor="middle" font-size="10" fill="#64748b">PK: email (S)</text>
+
+  <!-- Spaces -->
+  <g filter="url(#shadow)">
+    <rect x="460" y="562" width="280" height="80" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  </g>
+  <text x="600" y="590" text-anchor="middle" font-size="10" fill="#94a3b8" letter-spacing="2">DYNAMODB</text>
+  <text x="600" y="612" text-anchor="middle" font-size="16" font-weight="bold" fill="#f1f5f9">🗄  Spaces</text>
+  <text x="600" y="632" text-anchor="middle" font-size="10" fill="#64748b">PK: spaceId (S)</text>
+
+  <!-- Reservations -->
+  <g filter="url(#shadow)">
+    <rect x="860" y="562" width="280" height="80" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  </g>
+  <text x="1000" y="590" text-anchor="middle" font-size="10" fill="#94a3b8" letter-spacing="2">DYNAMODB</text>
+  <text x="1000" y="612" text-anchor="middle" font-size="16" font-weight="bold" fill="#f1f5f9">🗄  Reservations</text>
+  <text x="1000" y="632" text-anchor="middle" font-size="10" fill="#64748b">PK: reservationId (S)</text>
+
+  <!-- ── LEYENDA ── -->
+  <rect x="60" y="690" width="1080" height="85" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="712" text-anchor="middle" font-size="11" fill="#64748b" letter-spacing="2">LEYENDA</text>
+
+  <!-- Auth flow -->
+  <rect x="90" y="722" width="12" height="12" rx="3" fill="#7c3aed"/>
+  <text x="110" y="733" font-size="11" fill="#94a3b8">Auth Service — Tabla Users</text>
+
+  <!-- Spaces flow -->
+  <rect x="290" y="722" width="12" height="12" rx="3" fill="#047857"/>
+  <text x="310" y="733" font-size="11" fill="#94a3b8">Spaces Service — Tabla Spaces</text>
+
+  <!-- Reservations flow -->
+  <rect x="530" y="722" width="12" height="12" rx="3" fill="#b45309"/>
+  <text x="550" y="733" font-size="11" fill="#94a3b8">Reservations Service — Tabla Reservations + lee Spaces</text>
+
+  <!-- Billing -->
+  <text x="90" y="760" font-size="11" fill="#64748b">Billing Mode: PAY_PER_REQUEST  ·  Region: us-east-1  ·  Runtime: Node.js 18.x  ·  Auth: JWT (24h)</text>
+  <text x="90" y="775" font-size="11" fill="#64748b">Deploy: AWS SAM  ·  Stack: sistema-reservas-alkemy  ·  Local dev: Docker Compose + DynamoDB Local</text>
+
+  <!-- Border glow -->
+  <rect x="2" y="2" width="1196" height="796" rx="4" fill="none" stroke="#1d4ed8" stroke-width="1" opacity="0.3"/>
+</svg>

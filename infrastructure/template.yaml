@@ -1,0 +1,189 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sistema de Reservas Cloud — Alkemy Módulo 2
+  Arquitectura de microservicios con Lambda + API Gateway + DynamoDB
+
+Globals:
+  Function:
+    Runtime: nodejs18.x
+    Timeout: 30
+    MemorySize: 256
+    Environment:
+      Variables:
+        JWT_SECRET: !Ref JwtSecret
+
+Parameters:
+  JwtSecret:
+    Type: String
+    Default: "alkemy-reservas-secret-2025"
+    NoEcho: true
+    Description: Clave secreta para firmar tokens JWT
+
+Resources:
+
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Users
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+
+  SpacesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Spaces
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: spaceId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: spaceId
+          KeyType: HASH
+
+  ReservationsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Reservations
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: reservationId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: reservationId
+          KeyType: HASH
+
+  ReservasApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: ReservasAPI
+      StageName: prod
+      Cors:
+        AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+        AllowHeaders: "'Content-Type,Authorization'"
+        AllowOrigin: "'*'"
+
+  AuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: auth-service
+      CodeUri: ../auth-service/
+      Handler: src/handler.handler
+      Role: arn:aws:iam::832857053359:role/LabRole
+      Description: Registro y login de usuarios con JWT
+      Environment:
+        Variables:
+          USERS_TABLE: !Ref UsersTable
+      Events:
+        Register:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /auth/register
+            Method: POST
+        Login:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /auth/login
+            Method: POST
+
+  SpacesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: spaces-service
+      CodeUri: ../spaces-service/
+      Handler: src/handler.handler
+      Role: arn:aws:iam::832857053359:role/LabRole
+      Description: CRUD de espacios disponibles
+      Environment:
+        Variables:
+          SPACES_TABLE: !Ref SpacesTable
+      Events:
+        ListSpaces:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /spaces
+            Method: GET
+        CreateSpace:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /spaces
+            Method: POST
+        GetSpace:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /spaces/{id}
+            Method: GET
+        UpdateSpace:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /spaces/{id}
+            Method: PUT
+        DeleteSpace:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /spaces/{id}
+            Method: DELETE
+
+  ReservationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: reservations-service
+      CodeUri: ../reservations-service/
+      Handler: src/handler.handler
+      Role: arn:aws:iam::832857053359:role/LabRole
+      Description: Crear, consultar y cancelar reservas
+      Environment:
+        Variables:
+          RESERVATIONS_TABLE: !Ref ReservationsTable
+          SPACES_TABLE: !Ref SpacesTable
+      Events:
+        CreateReservation:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /reservations
+            Method: POST
+        ListReservations:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /reservations
+            Method: GET
+        GetReservation:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /reservations/{id}
+            Method: GET
+        CancelReservation:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ReservasApi
+            Path: /reservations/{id}
+            Method: DELETE
+
+Outputs:
+  ApiUrl:
+    Description: URL base de la API en AWS
+    Value: !Sub "https://${ReservasApi}.execute-api.${AWS::Region}.amazonaws.com/prod"
+  AuthEndpoint:
+    Description: Endpoint de autenticación
+    Value: !Sub "https://${ReservasApi}.execute-api.${AWS::Region}.amazonaws.com/prod/auth"
+  SpacesEndpoint:
+    Description: Endpoint de espacios
+    Value: !Sub "https://${ReservasApi}.execute-api.${AWS::Region}.amazonaws.com/prod/spaces"
+  ReservationsEndpoint:
+    Description: Endpoint de reservas
+    Value: !Sub "https://${ReservasApi}.execute-api.${AWS::Region}.amazonaws.com/prod/reservations"

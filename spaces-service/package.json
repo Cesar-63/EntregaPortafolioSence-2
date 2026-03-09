@@ -1,0 +1,19 @@
+{
+  "name": "spaces-service",
+  "version": "1.0.0",
+  "description": "Microservicio de espacios - Sistema de Reservas Cloud",
+  "main": "src/handler.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --coverage --verbose"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/util-dynamodb": "^3.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
